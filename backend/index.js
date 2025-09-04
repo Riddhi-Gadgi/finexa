@@ -13,7 +13,7 @@ const { UsersModel } = require("./model/UsersModel");
 const { PositionsModel } = require("./model/PositionsModel");
 
 const PORT = process.env.PORT || 3002;
-const MONGO_URI = process.env.MONGO_URL;
+const MONGO_URI = process.env.MONGO_URI;
 
 const app = express();
 
