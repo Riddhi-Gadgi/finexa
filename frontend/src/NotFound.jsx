@@ -1,5 +1,6 @@
 import React from "react";
 import { Home, SearchX } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function NotFound() {
   return (
@@ -32,13 +33,13 @@ function NotFound() {
           </h4>
 
           {/* Button with home icon */}
-          <a
-            href="/"
+          <Link
+            to="/"
             className="btn btn-primary px-4 py-2 shadow-sm d-inline-flex align-items-center gap-2"
             style={{ borderRadius: "8px" }}
           >
             Go Home
-          </a>
+          </Link>
 
           <p className="text-muted mt-3" style={{ fontSize: "0.9rem" }}>
             Or use the navigation menu to find what you need.

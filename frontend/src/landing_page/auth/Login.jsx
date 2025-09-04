@@ -111,13 +111,13 @@ function Login() {
         </form>
 
         <p className="text-center text-gray-500 mt-6 text-sm">
-          Don’t have an account?{" "}
-          <a
-            href="/signup"
+          Don't have an account?{" "}
+          <Link
+            to="/signup"
             className="text-purple-600 font-semibold hover:underline"
           >
-            Sign up
-          </a>
+            Sign Up
+          </Link>
         </p>
       </div>
 
