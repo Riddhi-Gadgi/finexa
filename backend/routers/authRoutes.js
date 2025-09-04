@@ -9,28 +9,44 @@ const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
 // Signup
 router.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
-  console.log("Signup body:", req.body);
 
+  // Check if all fields are provided
   if (!username || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
+    // Check if user with email already exists
     const existingUser = await UsersModel.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
+    // Create new user
     const user = await UsersModel.create({ username, email, password });
-    console.log("User created:", user);
 
+    // Generate JWT token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
-    res.json({ token, user: { id: user._id, username, email } });
-  } catch (err) {
-    console.error("Signup error:", err);
-    res.status(500).json({ message: "Internal Server Error" });
+
+    // Respond with token and user info
+    res.status(201).json({
+      token,
+      user: { id: user._id, username: user.username, email: user.email },
+    });
+  } catch (error) {
+    console.error("Signup error:", error);
+
+    // If error is due to Mongoose validation
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
+    }
+
+    // Default fallback
+    res.status(500).json({ message: "Server error during signup" });
   }
 });
+
+module.exports = router;
 
 // Login
 router.post("/login", async (req, res) => {
