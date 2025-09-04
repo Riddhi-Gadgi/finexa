@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Snackbar, Alert } from "@mui/material";
 
+const API_URL = import.meta.env.VITE_API_URL;
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -18,14 +19,11 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:3002/api/auth/signup",
-        {
-          username,
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post(`${API_URL}/api/auth/signup`, {
+        username,
+        email,
+        password,
+      });
 
       // Save userId in localStorage
       const userId = data.user.id;

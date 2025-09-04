@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Snackbar, Alert } from "@mui/material";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +26,10 @@ function Login() {
         return;
       }
 
-      const { data } = await axios.post(
-        "http://localhost:3002/api/auth/login",
-        { email, password }
-      );
+      const { data } = await axios.post(`${API_URL}/api/auth/login`, {
+        email,
+        password,
+      });
 
       const userId = data.user.id;
 

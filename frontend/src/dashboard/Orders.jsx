@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import GeneralContext from "./GeneralContext";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -19,7 +20,7 @@ const Orders = () => {
     }
 
     try {
-      const res = await axios.get(`http://localhost:3002/userOrders/${userId}`);
+      const res = await axios.get(`${API_URL}/userOrders/${userId}`);
       setOrders(res.data);
     } catch (err) {
       console.error("Error fetching orders:", err);

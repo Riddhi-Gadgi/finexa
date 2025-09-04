@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import GeneralContext from "./GeneralContext";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
@@ -26,7 +27,7 @@ const BuyActionWindow = ({ uid }) => {
     };
 
     axios
-      .post("http://localhost:3002/newOrder", orderData)
+      .post(`${API_URL}/newOrder`, orderData)
       .then(() => {
         closeBuyWindow();
         triggerOrdersRefresh();
