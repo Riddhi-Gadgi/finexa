@@ -31,21 +31,13 @@ function Signup() {
 
       console.log("Saved userId:", localStorage.getItem("userId"));
 
-      if (!userId) {
-        setToast({
-          open: true,
-          message: "No userId found. Redirecting to login.",
-          severity: "error",
-        });
-        navigate("/login");
-        return;
-      }
-
       setToast({
         open: true,
         message: "Signup successful!",
         severity: "success",
       });
+
+      // Navigate directly to /app
       navigate("/app");
     } catch (err) {
       console.error(err);

@@ -113,7 +113,7 @@ function Login() {
         <p className="text-center text-gray-500 mt-6 text-sm">
           Don’t have an account?{" "}
           <a
-            href="/signup"
+            href="/api/auth/signup"
             className="text-purple-600 font-semibold hover:underline"
           >
             Sign up
