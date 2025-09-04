@@ -9,22 +9,26 @@ const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
 // Signup
 router.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
+  console.log("Signup body:", req.body);
+
   if (!username || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const existingUser = await UsersModel.findOne({ email });
-  if (existingUser) {
-    return res.status(400).json({ message: "Email already registered" });
-  }
-
   try {
+    const existingUser = await UsersModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
     const user = await UsersModel.create({ username, email, password });
+    console.log("User created:", user);
+
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
     res.json({ token, user: { id: user._id, username, email } });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+  } catch (err) {
+    console.error("Signup error:", err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
